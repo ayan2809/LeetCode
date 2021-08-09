@@ -20,17 +20,17 @@ public:
                     dp[i][j]=0;continue;}
                 if(i==0){
                     dp[i][j]=INT_MAX-1;continue;}
-                // if(i==1){
-                //     if(j%coins[i-1]==0)
-                //     {
-                //         dp[i][j]=(int)j/coins[i-1];
-                //     }
-                //     else
-                //     {
-                //         dp[i][j]=INT_MAX;
-                //     }
-                //     continue;
-                // }
+                if(i==1){
+                    if(j%coins[i-1]==0)
+                    {
+                        dp[i][j]=(int)j/coins[i-1];
+                    }
+                    else
+                    {
+                        dp[i][j]=INT_MAX-1;
+                    }
+                    continue;
+                }
                 
         
                 if(coins[i-1]<=j)
