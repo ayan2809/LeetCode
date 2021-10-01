@@ -5,7 +5,6 @@ public:
         int n=text1.length();
         int m=text2.length();
         int dp[n+1][m+1];
-        //memset(dp,0, sizeof(dp[0][0]* n*m));
         
         for(int i=0;i<=n;i++)
         {
