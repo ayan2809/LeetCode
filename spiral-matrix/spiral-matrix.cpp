@@ -1,40 +1,47 @@
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        int m=matrix.size(), n=m?matrix[0].size():0;
-        int rs=0, re=m-1, cs=0, c=0, ce=n-1;
-        vector<int> ans(n * m);
-        while(rs<=re && cs<=ce )
+        vector<int>vec;
+        int bottom=matrix.size()-1;
+        int right=matrix[0].size()-1;
+        int top=0;
+        int left=0;
+        int i;
+        while(top<=bottom && left<=right)
         {
-            for(int col=cs;col<= ce; col++)
+            for(int i=left;i<=right;i++)
             {
-                ans[c++]=matrix[rs][col];
+                vec.push_back(matrix[top][i]);
             }
-            if(++rs >re )
+            top++;
+            if(top>bottom)
                 break;
-            for(int row= rs;row<=re;row++)
+            
+            for(int i=top;i<=bottom;i++)
             {
-                ans[c++]=matrix[row][ce];
+                vec.push_back(matrix[i][right]);
             }
-            if(--ce < cs)
-            {
+            right--;
+            if(left>right)
                 break;
-            }
-            for(int col=ce;col>=cs; col--)
+            for(int i=right;i>=left;i--)
             {
-                ans[c++]=matrix[re][col];
+                vec.push_back(matrix[bottom][i]);
             }
-            if(--re <rs )
+            
+            bottom--;
+            if(top>bottom)
                 break;
-            for(int row= re;row>=rs;row--)
+            for(int i=bottom;i>=top;i--)
             {
-                ans[c++]=matrix[row][cs];
+                vec.push_back(matrix[i][left]);
             }
-            if(++cs > ce)
-            {
+            
+            left++;
+            if(left>right)
                 break;
-            }
+            
         }
-        return ans;
+        return vec;
     }
 };
