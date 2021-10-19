@@ -12,22 +12,17 @@ class Solution {
         subsetsolver(array_list, new ArrayList<>(),0);
         return fin;
     }
-    public void subsetsolver( ArrayList<Integer> nums , ArrayList<Integer> curr, int i) {
+    public void subsetsolver(ArrayList<Integer> nums , ArrayList<Integer> curr, int i) {
         if(i==nums.size())
         {
-            ArrayList<Integer> out = new ArrayList<Integer>();
-            for(int j=0;j<curr.size();j++)
-                out.add(curr.get(j));
-                //System.out.print(curr.get(j));
-            //System.out.println();
-            fin.add(out);
+            fin.add(curr);
             return;
         }
-        
-        subsetsolver(nums, curr,i+1);
-        curr.add(nums.get(i));
-        subsetsolver(nums, curr,i+1);
-        curr.remove(curr.size()-1);
+        ArrayList<Integer> curr1=new ArrayList<>(curr);
+        ArrayList<Integer> curr2=new ArrayList<>(curr);
+        curr2.add(nums.get(i));
+        subsetsolver(nums, curr1,i+1);
+        subsetsolver(nums,  curr2,i+1);
         
     }
 }
