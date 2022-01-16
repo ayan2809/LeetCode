@@ -16,13 +16,6 @@ public:
             right.push_back(maxir);
         }
         reverse(right.begin(), right.end());
-        
-        // for(auto it: left)
-        //     cout<<it<<" ";
-        // cout<<endl;
-        // for(auto it: right)
-        //     cout<<it<<" ";
-        // cout<<endl;
         vector<int> ans;
         for(int i=0;i<seats.size();i++)
         {
@@ -40,11 +33,6 @@ public:
             }
             
         }
-        for(auto it: ans)
-        {
-            cout<<it<<" ";
-        }
-        cout<<endl;
         return *max_element(ans.begin(),ans.end());
     }
 };
