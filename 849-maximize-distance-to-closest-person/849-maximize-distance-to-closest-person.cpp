@@ -16,23 +16,25 @@ public:
             right.push_back(maxir);
         }
         reverse(right.begin(), right.end());
+        int answer=0;
         vector<int> ans;
         for(int i=0;i<seats.size();i++)
         {
             if(left[i]==-1)
             {
-                ans.push_back(abs(right[i]-i));
+                answer=max(answer,abs(right[i]-i));
             }
             else if(right[i]==INT_MAX-1)
             {
-                ans.push_back(abs(left[i]-i));
+                answer=max(answer,abs(left[i]-i));
             }
             else
             {
-                ans.push_back(min(abs(left[i]-i),abs(i-right[i])));
+                answer=max(answer,min(abs(left[i]-i),abs(i-right[i])) );
             }
             
         }
-        return *max_element(ans.begin(),ans.end());
+        return answer;
+       
     }
 };
