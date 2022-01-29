@@ -25,10 +25,42 @@ public:
         ans->right=solve(preorder, inorder, index, x+1,length);
         return ans;
     }
+    
+    TreeNode *buildTreeHelper(vector<int> pre, vector <int> in, int inS, int inE, int preS, int preE)
+{
+	if(inS>inE)
+	{
+		return NULL;
+	}
+
+	int rootData= pre[preS];
+	// cout<<rootData<<endl;
+	int rootIndex=-1;
+	for(int i=inS;i<=inE;i++)
+	{
+		if(in[i]==rootData)
+		{
+			rootIndex=i;
+			break;	
+		}
+	}
+	int lInS=inS;
+	int lInE= rootIndex-1;
+	int lPreS= preS + 1;
+	int lPreE= lInE - lInS+lPreS;
+	int rPreS=lPreE+1;
+	int rPreE=preE;
+	int rInS= rootIndex+1;
+	int rInE= inE;
+	TreeNode* root= new TreeNode(rootData);
+	root->left=buildTreeHelper(pre, in, lInS, lInE, lPreS, lPreE);
+	root->right=buildTreeHelper(pre, in, rInS, rInE, rPreS, rPreE);
+	return root;
+}
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         int length=preorder.size();
         int index=0;
-        TreeNode * ans=solve(preorder, inorder, index, 0, length-1);
+        TreeNode * ans=buildTreeHelper(preorder, inorder, 0, length-1, 0, length-1);
         return ans;
     }
 };
