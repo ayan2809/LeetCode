@@ -39,7 +39,7 @@ public:
             min=rmin;
         return min;
     }
-    void solve(TreeNode* root, int x, vector<int> &ans)
+    void solve(TreeNode* root, int &maxi)
     {
         if(root==NULL)
         {
@@ -47,16 +47,13 @@ public:
         }
         int x1=maxFinder(root);
         int x2=minFinder(root);
-        ans.push_back(max(abs(root->val-x1),abs(root->val-x2)));
-        
-        solve(root->left, x, ans );
-        solve(root->right, x, ans);
-        // x=root->val;
+        maxi=max(maxi, max(abs(root->val-x1),abs(root->val-x2)));
+        solve(root->left, maxi);
+        solve(root->right,  maxi);
     }
     int maxAncestorDiff(TreeNode* root) {
-        vector<int> ans;
-        solve(root,root->val, ans);
-        // cout<<minFinder(root)<<endl;
-        return *max_element(ans.begin(), ans.end());
+        int maxi=-1;
+        solve(root,maxi);
+        return maxi;
     }
 };
