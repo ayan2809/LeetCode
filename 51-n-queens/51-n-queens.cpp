@@ -1,78 +1,77 @@
 class Solution {
-    int board[11][11];
-    vector<vector<string>> ans;
 public:
-    bool isPossible(int n, int row, int col)
+        void addSolution(vector<vector<string>>&board, vector<vector<string>>&ans ,int n)
     {
-        for(int i=row-1;i>=0;i--)
+       vector<string>temp;
+        for(int i=0;i<n;i++)
         {
-            if(board[i][col]==1)
+            string s="";
+            for(int j=0;j<n;j++)
             {
-                return false;
+                s+=board[i][j];
+                // temp.push_back(board[i][j]);
             }
+            temp.push_back(s);
         }
-
-        for(int i=row-1,j=col-1;i>=0 && j>=0; i--, j--)
-        {
-            if(board[i][j]==1)
-                return false;
-        }
-
-        for(int i=row-1,j=col+1;i>=0 && j<n;i--, j++)
-        {
-            if(board[i][j]==1)
-            {
-                return false;
-            }
-        }
-        return true;
+        ans.push_back(temp);
     }
-    void nQueenHelper(int n, int row)
+     bool isSafe(int row, int col, vector<vector<string>>board , int n)
+     {
+         int x=row;
+         int y=col;
+         // check for same row
+         while(y>=0)
+         {
+             if(board[x][y]=="Q")
+                 return false;
+             y--;
+          }
+          x=row;
+          y=col;
+         // check for diagonal
+         while(x>=0 and y>=0)
+         {
+              if(board[x][y]=="Q")
+                 return false;
+             x--;
+             y--;
+         }
+           x=row;
+          y=col;
+         // check for diagonal
+         while(x<n and y>=0)
+         {
+              if(board[x][y]=="Q")
+                 return false;
+             x++;
+             y--;
+         }                                                                                                                                                      
+         return true;
+     }
+    void solve(int col,vector<vector<string>>&ans,vector<vector<string>>&board , int n)
     {
-        if(row==n)
+        // base case
+        if(col==n) 
         {
-            // print the matrix
-            // return;
-            vector<string> x;
-            for(int i=0;i<n;i++)
-            {
-                string x2="";
-                for(int j=0;j<n;j++)
-                {
-                    if(board[i][j]==1)
-                        x2+="Q";
-                    else
-                        x2+=".";
-                    cout<<board[i][j]<<" ";
-                }
-                x.push_back(x2);
-                
-            }
-            ans.push_back(x);
-            cout<<endl;
+            addSolution(board,ans,n);
             return;
         }
-
-        // place at all possible positions
-        // and move to smaller problem
-        for(int j=0;j<n;j++)
+        // solve one case and rest recursion will take care
+        for(int row=0;row<n;row++)
         {
-            if(isPossible(n,row,j))
+            if(isSafe(row,col,board,n))
             {
-                board[row][j]=1;
-                nQueenHelper(n, row+1);
-                board[row][j]=0;
+                board[row][col]="Q";
+                solve(col+1,ans,board,n);
+                board[row][col]=".";
             }
         }
-        return;
-    }
-    void placeNQueens(int n)
-    {
-        memset(board, 0, 11*11*sizeof(int));
-        nQueenHelper(n,0);
     }
     vector<vector<string>> solveNQueens(int n) {
-        placeNQueens(n);
-        return ans;
+         vector<vector<string>> ans;
+         vector<vector<string>>board(n,vector<string>(n,"."));
+         // memset(board, 0, 11*11*sizeof(int));
+         solve(0,ans,board,n);
+          return ans;
     }
 };
