@@ -1,34 +1,34 @@
 class Solution {
 public:
-    bool checkPal(string s, int start, int end)
+    bool checkPalindrome(string s, int start, int end)
     {
         while(start<=end)
         {
-            if(s[start++]!=s[end--])
+            if(s[start]!=s[end])
             {
                 return false;
             }
+            start++;
+            end--;
         }
         return true;
     }
-    void solve(string s, vector<vector<string>> & ans, vector<string> &path, int ind)
+    void solve(string s, vector<vector<string>> &ans, vector<string> path, int index)
     {
-        if(ind==s.size())
+        if(index==s.length())
         {
             ans.push_back(path);
             return;
         }
-        for(int i=ind;i<s.size();++i)
+        for(int i=index;i<s.length();i++)
         {
-            if(checkPal(s, ind, i))
+            if(checkPalindrome(s, index, i))
             {
-                path.push_back(s.substr(ind, i-ind+1));
+                path.push_back(s.substr(index, i-index+1));
                 solve(s, ans, path, i+1);
                 path.pop_back();
-                
             }
         }
-        
     }
     vector<vector<string>> partition(string s) {
         vector<vector<string>> ans;
@@ -36,5 +36,4 @@ public:
         solve(s, ans, path, 0);
         return ans;
     }
-        
 };
