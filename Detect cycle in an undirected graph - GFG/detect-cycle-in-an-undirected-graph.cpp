@@ -19,31 +19,20 @@ class Solution {
     		{
     		    
     		  if(!visited[it])
-        			{
-        				q.push({it, curr});
-        				visited[it]=true;
-        			}
-        			else if(parent!=it)
-        			{
-        				return true;
-        			}
-    		    
-        			
+        	  {
+        	        q.push({it, curr});
+        			visited[it]=true;
+        	  }
+        	  else if(parent!=it)
+        	  {
+        		    return true;
+        	  }
     		}
     	}
     	return false;
     }
-    // Function to detect cycle in an undirected graph.
     bool isCycle(int V, vector<int> adj[]) {
-        // Code here
-        // vector<int> graph(V);
-        // for(int i=0;i<adj.size();i++)
-        // {
-        //     for(auto it: adj[i])
-        //     {
-        //         graph[adj]
-        //     }
-        // }
+        
         int n=V;
         vector<bool> visited(V, false);
         for(int i=0;i<n;i++)
@@ -52,15 +41,10 @@ class Solution {
 			{
 				if(checkCycle(adj, visited, V, i))
 				{
-    				// 	cout<<"Yes"<<endl;
-    				// 	flag=1;
-    				// 	break;
 				    return true;
 				}
 			}
 		}
-// 		if(!flag)
-// 			cout<<"No"<<endl;
         return false;
     }
 };
