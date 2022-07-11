@@ -11,27 +11,24 @@
  */
 class Solution {
 public:
-    vector<vector<int>> res;
-public:
+    vector<vector<int>> out;
     void solve(TreeNode *root, int k)
     {
-        if(root==NULL)
+        if(root==nullptr)
             return;
-        if(k==res.size())
+        if(k==out.size())
         {
-            res.push_back({});
+            out.push_back({});
         }
-        res[k].push_back(root->val);
-        solve(root->left,k+1);
+        out[k].push_back(root->val);
+        solve(root->left, k+1);
         solve(root->right, k+1);
     }
     vector<int> rightSideView(TreeNode* root) {
         vector<int> ans;
-        solve(root,0);
-        for(auto it: res)
-        {
+        solve(root, 0);
+        for(auto it: out)
             ans.push_back(it[it.size()-1]);
-        }
         return ans;
     }
 };
