@@ -23,10 +23,7 @@ public:
         res[k].push_back(root->val);
         solve(root->left,k+1);
         solve(root->right, k+1);
-        // for(int i=0;i<root->children.size();i++)
-        // {
-        //     solve(root->children[i],k+1);
-        // }
+        
     }
     vector<double> averageOfLevels(TreeNode* root) {
         solve(root, 0);
