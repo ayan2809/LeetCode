@@ -1,21 +1,27 @@
 class Solution {
 public:
     vector<int> arrayRankTransform(vector<int>& arr) {
+        vector<int> x = arr;
+        sort(x.begin(), x.end());
         map<int, int> umap;
-        for(auto it: arr)
+        int i=1,m=x[0];
+        for(auto it: x)
         {
-            umap[it]+=1;
+            if(it>m)
+            {
+                i+=1;
+                umap[it]=i;
+                m=it;
+            }
+            else if(it==m)
+            {
+                umap[it]=i;
+            }
         }
-        int k=1;
-        for(auto it: umap)
+        for(auto &it: arr)
         {
-            umap[it.first]=k++;
+            it=umap[it];
         }
-        vector<int> ans;
-        for(auto it:arr)
-        {
-            ans.push_back(umap[it]);
-        }
-        return ans;
+        return arr;
     }
 };
