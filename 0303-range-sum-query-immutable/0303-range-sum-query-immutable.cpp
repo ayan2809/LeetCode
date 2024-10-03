@@ -1,8 +1,7 @@
 class NumArray {
 public:
     vector<int> query;
-    NumArray(vector<int>& nums) {
-        query=nums;
+    NumArray(vector<int>& nums) : query(nums) {
     }
     
     int sumRange(int left, int right) {
